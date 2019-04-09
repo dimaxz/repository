@@ -25,10 +25,6 @@ $criteria = new UserCriteria();
 $criteria->setFilterByName("Vova");
 
 $users = $userRepository->findByCriteria($criteria);
-
-//или
-
-$user = $userRepository->findById(1);
 ```
 
 ## Пример реализации интерфейсов
