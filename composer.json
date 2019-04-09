@@ -1,0 +1,18 @@
+{
+  "name": "dimaxz/repository",
+  "description": "repository interfaces",
+  "authors": [
+    {
+      "name": "Lanets Dmitriy",
+      "email": "dim@lanets.tw1.ru"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Repository\\": "Repository/"
+    }
+  }
+}
