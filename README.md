@@ -106,3 +106,5 @@ class UserCollection implements CollectionInterface{
 }
 ````
 
+
+Пример проекта https://github.com/dimaxz/active-table-project
