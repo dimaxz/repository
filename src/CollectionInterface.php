@@ -5,6 +5,13 @@ namespace Repo;
  * Interface CollectionInterface
  * @package Repo
  */
-interface CollectionInterface {
+interface CollectionInterface extends \Iterator, \ArrayAccess , ExportableInterface{
+
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    public function push($value);
 
 }

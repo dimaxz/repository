@@ -7,4 +7,9 @@ namespace Repo;
  */
 interface RepositoryCriteriaInterface {
 
+
+    public function filterById(?int $id);
+
+    public function sortById(?string $sort);
+
 }
