@@ -5,7 +5,7 @@ namespace Repo;
  * Interface CollectionInterface
  * @package Repo
  */
-interface CollectionInterface extends \Iterator, \ArrayAccess , ExportableInterface{
+interface CollectionInterface extends \Iterator, \ArrayAccess , \Countable, ExportableInterface{
 
 
     /**
