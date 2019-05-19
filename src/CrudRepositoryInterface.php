@@ -12,7 +12,7 @@ interface CrudRepositoryInterface {
 
     public function findByCriteria(PaginationInterface $criteria): CollectionInterface;
 
-    public function count(): int;
+    public function count(?PaginationInterface $criteria): int;
 
     public function save(EntityInterface $entity);
 
