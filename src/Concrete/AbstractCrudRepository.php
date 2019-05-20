@@ -47,7 +47,7 @@ abstract class AbstractCrudRepository
     {
 
         $dbCriteria = static::buildCriteria()
-            ->setManualSelect(sprintf("count(%s) as c", static::KEY_NAME));
+            ->setManualSelect(sprintf("count(%s.%s) as c", static::TABLE_NAME , static::KEY_NAME));
 
         if ($criteria) {
             $this->modifyCriteria($criteria, $dbCriteria);
