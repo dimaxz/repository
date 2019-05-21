@@ -10,12 +10,10 @@ use Repo\Concrete\Exceptions;
  *
  * @author d.lanec
  */
-class AbstractCollection implements CollectionInterface {
+abstract class AbstractCollection implements CollectionInterface {
 
 	protected $_entities = array();
 
-	protected $_entityClass;
-	
 	protected $lastKey;
 
 	/**
@@ -34,6 +32,11 @@ class AbstractCollection implements CollectionInterface {
 		}
 		$this->rewind();
 	}
+
+    /**
+     * @return string
+     */
+	abstract protected function getEntityClass():string;
 
 	/**
 	 * @return int|null
@@ -144,8 +147,10 @@ class AbstractCollection implements CollectionInterface {
 		if (!$entity instanceof AbstractEntity ) {
 			throw new Exceptions\Collection("The specified entity is not extends AbstractEntity for this collection.");
 		}
-		
-		if ($entity instanceof $this->_entityClass) {
+
+		$className = $this->getEntityClass();
+
+		if ($entity instanceof $className) {
 			
 			if(empty($key)){
 				$key = md5(serialize($entity));
@@ -165,7 +170,10 @@ class AbstractCollection implements CollectionInterface {
 	 * Remove an entity from the collection (implementation required by ArrayAccess interface)
 	 */
 	public function offsetUnset($object) {
-		if ($object instanceof $this->_entityClass) {
+
+	    $className = $this->getEntityClass();
+        
+		if ($object instanceof $className) {
 			$key = md5(serialize($object));
 			unset($this->_entities[$key]);
 			return true;
