@@ -47,7 +47,7 @@ abstract class AbstractCrudRepository
     {
 
         $dbCriteria = static::buildCriteria()
-            ->setManualSelect(sprintf("count(%s.%s) as c", static::TABLE_NAME , static::KEY_NAME));
+            ->setManualSelect(sprintf("%s.%s", static::TABLE_NAME , static::KEY_NAME));
 
         if ($criteria) {
             $this->modifyCriteria($criteria, $dbCriteria);
@@ -55,6 +55,7 @@ abstract class AbstractCrudRepository
 
         $query = sprintf("SELECT count(1) as c FROM (%s) sub",
             $this->adapter->buildQuery(static::TABLE_NAME, $dbCriteria));
+
 
         $row = $this->adapter->exuteQuery($query, true);
 
