@@ -72,6 +72,8 @@ abstract class AbstractCrudRepository
         return (new SearchCriteria());
     }
 
+    abstract public static function createEntity(): \Repo\EntityInterface;
+
     /**
      * Авто установка значений в объект
      * @param array $dataList
@@ -79,8 +81,13 @@ abstract class AbstractCrudRepository
      *
      * @throws \ReflectionException
      */
-    protected function autoFillEntity(array $dataList, object $entity)
+    protected function autoFillEntity(array $dataList, object $entity = null) : \Repo\EntityInterface
     {
+        if($entity === null){
+            $entity = static::createEntity();
+        }
+
+        $dataList = array_change_key_case($dataList);
 
         $reflector = new \ReflectionClass($entity);
 
@@ -130,6 +137,8 @@ abstract class AbstractCrudRepository
                 $entity->{$methodName}($value);
             }
         }
+
+        return $entity;
     }
 
     /**

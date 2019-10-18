@@ -12,7 +12,7 @@ namespace Repo\Concrete\Exceptions;
  *
  * @author d.lanec
  */
-class MapNotSet extends Mapper {
+class MapNotSet extends RepositoryException {
 	
 	protected $column;
 			

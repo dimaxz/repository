@@ -7,6 +7,6 @@ namespace Repo\Concrete\Exceptions;
  *
  * @author d.lanec
  */
-class Mapper extends \Exception {
+class Mapper extends RepositoryException {
 
 }

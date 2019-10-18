@@ -9,7 +9,7 @@
 namespace Repo\Concrete\Exceptions;
 
 
-class ForeignKeyConstraintException extends \Exception
+class ForeignKeyConstraintException extends RepositoryException
 {
     protected $tableName;
 
