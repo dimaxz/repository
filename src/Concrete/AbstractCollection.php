@@ -153,7 +153,7 @@ abstract class AbstractCollection implements CollectionInterface {
 		if ($entity instanceof $className) {
 			
 			if(empty($key)){
-				$key = md5(get_class($entity) . $entity->getId());
+				$key = md5($className . $entity->getId());
 			}
 			
 			if (!isset($key)) {
