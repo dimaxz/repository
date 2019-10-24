@@ -30,7 +30,7 @@ class AbstractValidation implements ValidationInterface
      */
     public function errors(): array
     {
-        return $errors;
+        return $this->errors;
     }
 
     /**
@@ -38,7 +38,7 @@ class AbstractValidation implements ValidationInterface
      */
     public function isValid(): bool
     {
-        return count($this->errors);
+        return count($this->errors) === 0;
     }
 
     /**
