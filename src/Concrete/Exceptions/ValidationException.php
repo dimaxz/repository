@@ -12,32 +12,37 @@ namespace Repo\Concrete\Exceptions;
  *
  * @author d.lanec
  */
-class ValidationException extends \Exception {
-	
-	protected $errors = [];
-	
-	function __construct($errors = []) {
-		$this->errors = (array) $errors;
-		parent::__construct("validation errors");
-	}
-	
-	function getErrors() {
-		return $this->errors;
-	}
-	
-	/**
-	 * Получеание первой ошибки из всех
-	 * @return string
-	 */
-	public function getFirstError(){
-		return array_shift($this->errors);
-	}
+class ValidationException extends \Exception
+{
+
+    protected $errors = [];
+
+    function __construct($errors = [])
+    {
+        $this->errors = (array)$errors;
+        parent::__construct("validation errors");
+    }
+
+    function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * Получеание первой ошибки из всех
+     * @return string
+     */
+    public function getFirstError()
+    {
+        return array_shift($this->errors);
+    }
 
     /**
      * @return string
      */
-	public function toArray(){
-	    return implode(",", $this->errors);
+    public function __toString(): string
+    {
+        return implode(",", $this->errors);
     }
 
 }
