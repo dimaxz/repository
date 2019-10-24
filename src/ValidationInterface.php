@@ -1,14 +1,13 @@
 <?php
 
-
 namespace Repo;
 
 
 interface ValidationInterface
 {
-    public function errors();
+    public function errors(): array;
 
-    public function isValid();
+    public function isValid(): bool;
 
-    public function getFirstError();
+    public function getFirstError(): ?string;
 }
