@@ -10,8 +10,8 @@ use Repo\EntityInterface;
  */
 interface CrudRepositoryInterface extends SearchRepositoryInterface {
 
-    public function save(EntityInterface $entity);
+    public function save(EntityInterface $entity) : void;
 
-    public function delete(EntityInterface $entity);
+    public function delete(EntityInterface $entity): void;
 
 }

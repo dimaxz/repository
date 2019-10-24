@@ -13,6 +13,16 @@ use Repo\ValidationInterface;
 class AbstractValidation implements ValidationInterface
 {
 
+    /**
+     * @todo перевести на англ.версию
+     */
+    const MSG_NOT_EMPTY = "%s не должно быть пустым";
+
+    /**
+     * @todo перевести на англ.версию
+     */
+    const MSG_NOTCORRECT = "%s указано не верно";
+
     protected $errors = [];
 
     /**
@@ -49,5 +59,18 @@ class AbstractValidation implements ValidationInterface
         return ($this->errors[0] ? $this->errors[0] : null);
     }
 
+    /**
+     * @param AbstractEntity $entity
+     * @param string $name
+     * @return bool
+     */
+    protected function validateNotEmptyMethod(AbstractEntity $entity, string $name)
+    {
+        try {
+            return $entity->{"get" . $name}();
+        } catch (\TypeError $ex) {
+            return false;
+        }
+    }
 
 }

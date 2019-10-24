@@ -22,7 +22,7 @@ abstract class AbstractCrudRepository
     /**
      * @param EntityInterface $entity
      */
-    public function delete(EntityInterface $entity)
+    public function delete(EntityInterface $entity): void
     {
 
         $this->adapter->delete(static::TABLE_NAME, sprintf("%s=%s", static::KEY_NAME, $entity->getId()));
@@ -34,7 +34,7 @@ abstract class AbstractCrudRepository
      * @param PaginationInterface $criteria
      * @return mixed
      */
-    abstract protected function modifyCriteria(PaginationInterface $criteria,SearchCriteria $dbCriteria);
+    abstract protected function modifyCriteria(PaginationInterface $criteria,SearchCriteria $dbCriteria): void ;
 
     /**
      * кол-во записей
@@ -193,7 +193,7 @@ abstract class AbstractCrudRepository
      * @param array $data
      * @param EntityInterface $entity
      */
-    protected function insertOrUpdate(array $data, EntityInterface $entity)
+    protected function insertOrUpdate(array $data, EntityInterface $entity): void 
     {
         if ($entity->getId() > 0) {
             $this->adapter->update(static::TABLE_NAME, $data, sprintf("%s = %s", static::KEY_NAME, $entity->getId()));
