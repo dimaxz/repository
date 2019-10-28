@@ -193,7 +193,7 @@ abstract class AbstractCrudRepository
      * @param array $data
      * @param EntityInterface $entity
      */
-    protected function insertOrUpdate(array $data, EntityInterface $entity): void 
+    protected function insertOrUpdate(array $data, EntityInterface $entity): void
     {
         if ($entity->getId() > 0) {
             $this->adapter->update(static::TABLE_NAME, $data, sprintf("%s = %s", static::KEY_NAME, $entity->getId()));
