@@ -1,6 +1,9 @@
 <?php
 namespace Repo;
 
+use Repo\Concrete\AbstractCollection;
+use Repo\Concrete\AbstractEntity;
+
 /**
  * Interface CollectionInterface
  * @package Repo
@@ -12,6 +15,6 @@ interface CollectionInterface extends \Iterator, \ArrayAccess , \Countable, Expo
      * @param $value
      * @return mixed
      */
-    public function push($value);
+    public function push(AbstractEntity $value): AbstractCollection;
 
 }
