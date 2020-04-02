@@ -53,6 +53,9 @@ abstract class AbstractCrudRepository
             $this->modifyCriteria($criteria, $dbCriteria);
         }
 
+        //сортировка не нужна
+        $dbCriteria->setOrder([]);
+
         $query = sprintf("SELECT count(1) as c FROM (%s) sub",
             $this->adapter->buildQuery(static::TABLE_NAME, $dbCriteria));
 
@@ -73,6 +76,8 @@ abstract class AbstractCrudRepository
     }
 
     abstract public static function createEntity(): \Repo\EntityInterface;
+
+    abstract public static function buildEntityFromArray(array $row):\Repo\EntityInterface;
 
     /**
      * Авто установка значений в объект
