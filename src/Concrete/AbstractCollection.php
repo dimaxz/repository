@@ -111,10 +111,12 @@ abstract class AbstractCollection implements CollectionInterface
     /**
      * @return AbstractEntity
      */
-    public function walk(): AbstractEntity
+    public function walk(): ?AbstractEntity
     {
         $key = key($this->_entities);
-        $val = current($this->_entities);
+        if(!$val = current($this->_entities)){
+			return null;
+		}
         $this->next();
         $this->lastKey = $key;
         return $val;
