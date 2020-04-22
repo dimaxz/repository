@@ -119,7 +119,7 @@ abstract class AbstractCrudRepository
                 case 'bool':
                     $value = (bool)$value;
                     break;
-                case 'int':
+                case 'int' && $value > 0:
                     $value = (int)$value;
                     break;
                 case \DateTime::class:
@@ -128,11 +128,14 @@ abstract class AbstractCrudRepository
                         $casted = false;
                     }
                     break;
-                case 'float':
+                case 'float'  && $value > 0:
                     $value = (float)$value;
                     break;
                 case 'string':
                     $value = (string)$value;
+                    break;
+                case 'array':
+                    $value = (array)$value;
                     break;
                 default:
                     $casted = false;
@@ -140,6 +143,9 @@ abstract class AbstractCrudRepository
             }
             if ($casted) {
                 $entity->{$methodName}($value);
+            }
+            else{
+                $entity->{$methodName}(null);
             }
         }
 
