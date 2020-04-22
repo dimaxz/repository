@@ -69,7 +69,7 @@ class AbstractValidation implements ValidationInterface
         try {
             return $entity->{"get" . $name}();
         } catch (\TypeError $ex) {
-            return false;
+            return null;
         }
     }
 
