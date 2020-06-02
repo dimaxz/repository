@@ -110,25 +110,32 @@ abstract class AbstractCrudRepository
 
             $argType = $methodInfo->getParameters()[0]->getType();
 
-            if (empty($argType) || gettype($value) == $argType) {
-                $entity->{$methodName}($value);
+
+
+            $casted = true;
+
+
+            //если значения нет то загоняем null
+            if (empty($value) && $argType->allowsNull() === true) {
+                $entity->{$methodName}(null);
                 continue;
             }
-            $casted = true;
-            switch ($argType) {
+
+            $type = $argType->getName();
+
+
+            switch ($type) {
                 case 'bool':
                     $value = (bool)$value;
                     break;
-                case 'int' && $value > 0:
+                case 'int':
                     $value = (int)$value;
                     break;
-                case \DateTime::class:
-                    $value = \DateTime::createFromFormat("d/m/Y H:i:s", $value);
-                    if ($value === false) {
-                        $casted = false;
-                    }
+                case 'DateTime':
+                    //$value = \DateTime::createFromFormat("d/m/Y H:i:s", $value);
+                    $value = new \DateTime($value);
                     break;
-                case 'float'  && $value > 0:
+                case 'float':
                     $value = (float)$value;
                     break;
                 case 'string':
@@ -137,16 +144,10 @@ abstract class AbstractCrudRepository
                 case 'array':
                     $value = (array)$value;
                     break;
-                default:
-                    $casted = false;
-                    break;
             }
-            if ($casted) {
-                $entity->{$methodName}($value);
-            }
-            else{
-                $entity->{$methodName}(null);
-            }
+
+            $entity->{$methodName}($value);
+
         }
 
         return $entity;
