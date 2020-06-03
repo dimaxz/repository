@@ -121,7 +121,7 @@ abstract class AbstractCrudRepository
                 continue;
             }
 
-            $type = $argType->getName();
+            $type = !$argType ? null : $argType->getName();
 
 
             switch ($type) {
