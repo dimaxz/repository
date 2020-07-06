@@ -114,9 +114,9 @@ abstract class AbstractCrudRepository
 
             $casted = true;
 
-
+            
             //если значения нет то загоняем null
-            if (empty($value) && $argType->allowsNull() === true) {
+            if (empty($value) && $argType && $argType->allowsNull() === true) {
                 $entity->{$methodName}(null);
                 continue;
             }
