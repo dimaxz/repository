@@ -132,7 +132,7 @@ abstract class AbstractCrudRepository
                     $value = (int)$value;
                     break;
                 case 'DateTime':
-                    $value = \DateTime::createFromFormat("d/m/Y H:i:s", $value);
+                    $value = \DateTime::createFromFormat("d/m/Y H:i:s", $value) ?: null;
                     //$value = new \DateTime($value);
                     break;
                 case 'float':
