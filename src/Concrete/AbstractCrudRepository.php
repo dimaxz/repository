@@ -34,7 +34,7 @@ abstract class AbstractCrudRepository
      * @param PaginationInterface $criteria
      * @return mixed
      */
-    abstract protected function modifyCriteria(PaginationInterface $criteria,SearchCriteria $dbCriteria): void ;
+    abstract protected function modifyCriteria(PaginationInterface $criteria, SearchCriteria $dbCriteria): void;
 
     /**
      * кол-во записей
@@ -47,7 +47,7 @@ abstract class AbstractCrudRepository
     {
 
         $dbCriteria = static::buildCriteria()
-            ->setManualSelect(sprintf("%s.%s", static::TABLE_NAME , static::KEY_NAME));
+            ->setManualSelect(sprintf("%s.%s", static::TABLE_NAME, static::KEY_NAME));
 
         if ($criteria) {
             $this->modifyCriteria($criteria, $dbCriteria);
@@ -77,7 +77,7 @@ abstract class AbstractCrudRepository
 
     abstract public static function createEntity(): \Repo\EntityInterface;
 
-    abstract public static function buildEntityFromArray(array $row):\Repo\EntityInterface;
+    abstract public static function buildEntityFromArray(array $row): \Repo\EntityInterface;
 
     /**
      * Авто установка значений в объект
@@ -86,9 +86,9 @@ abstract class AbstractCrudRepository
      *
      * @throws \ReflectionException
      */
-    protected function autoFillEntity(array $dataList, object $entity = null) : \Repo\EntityInterface
+    protected function autoFillEntity(array $dataList, object $entity = null): \Repo\EntityInterface
     {
-        if($entity === null){
+        if ($entity === null) {
             $entity = static::createEntity();
         }
 
@@ -110,19 +110,20 @@ abstract class AbstractCrudRepository
 
             $argType = $methodInfo->getParameters()[0]->getType();
 
-
-
             $casted = true;
 
-            
             //если значения нет то загоняем null
-            if (empty($value) && $argType && $argType->allowsNull() === true) {
+            if (
+                empty($value) && $argType && $argType->allowsNull() === true) {
                 $entity->{$methodName}(null);
                 continue;
             }
 
             $type = !$argType ? null : $argType->getName();
 
+            if (class_exists($argType) && !is_a($value, $argType)) {
+                continue;
+            }
 
             switch ($type) {
                 case 'bool':
