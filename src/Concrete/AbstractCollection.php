@@ -4,6 +4,7 @@ namespace Repo\Concrete;
 
 use Repo\CollectionInterface;
 use Repo\Concrete\Exceptions;
+use Repo\EntityInterface;
 
 /**
  * Абстрактная коллекция для Enitities
@@ -240,7 +241,7 @@ abstract class AbstractCollection implements CollectionInterface
      * @return $this|mixed
      * @throws Exceptions\Collection
      */
-    public function push(AbstractEntity $value): AbstractCollection
+    public function push(EntityInterface $value): AbstractCollection
     {
         $this->offsetSet($value);
         return $this;
