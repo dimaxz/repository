@@ -3,139 +3,171 @@
 namespace Repo\Concrete;
 
 use Repo\PaginationInterface;
+use Repo\RepositoryCriteriaInterface;
 
-abstract class AbstractCriteria implements PaginationInterface {
+abstract class AbstractCriteria implements PaginationInterface, RepositoryCriteriaInterface
+{
 
-	protected $limit = 0;
-	protected $page = 0;
-	private $def = 50;
+    protected $limit = 0;
+    protected $page = 0;
+    private $def = 50;
 
-	abstract public static function create();
+    abstract public static function create();
 
-	/**
-	 * @var array|null
-	 */
-	protected $filterByIds;
+    /**
+     * @var array|null
+     */
+    protected $filterByIds;
 
-	/**
-	 * @var int|null
-	 */
-	protected $filterById;
+    /**
+     * @var int|null
+     */
+    protected $filterById;
 
-	/**
-	 * @var string|null
-	 */
-	protected $sortById;
+    /**
+     * @var string|null
+     */
+    protected $sortById;
 
-	/**
-	 * @return array|null
-	 */
-	public function getFilterByIds(): ?array {
+    /**
+     * @return array|null
+     */
+    public function getFilterByIds(): ?array
+    {
 
-		return $this->filterByIds;
-	}
+        return $this->filterByIds;
+    }
 
-	/**
-	 * @param array|null $filterByIds
-	 *
-	 * @return AbstractCriteria
-	 */
-	public function setFilterByIds(?array $filterByIds): AbstractCriteria {
+    /**
+     * @param array|null $filterByIds
+     *
+     * @return AbstractCriteria
+     */
+    public function setFilterByIds(?array $filterByIds): AbstractCriteria
+    {
 
-		$this->filterByIds = $filterByIds;
+        $this->filterByIds = $filterByIds;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return int|null
-	 */
-	public function getFilterById(): ?int {
+    /**
+     * @return int|null
+     */
+    public function getFilterById(): ?int
+    {
 
-		return $this->filterById;
-	}
+        return $this->filterById;
+    }
 
-	/**
-	 * @param int|null $filterById
-	 *
-	 * @return $this
-	 */
-	public function setFilterById(?int $filterById) {
+    /**
+     * @param int|null $filterById
+     *
+     * @return $this
+     */
+    public function setFilterById(?int $filterById)
+    {
 
-		$this->filterById = $filterById;
+        $this->filterById = $filterById;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string|null
-	 */
-	public function getSortById(): ?string {
+    public function filterById(?int $id)
+    {
 
-		return $this->sortById;
-	}
+        $this->filterById = $filterById;
 
-	/**
-	 * @param string|null $sortById
-	 *
-	 * @return AbstractCriteria
-	 */
-	public function setSortById(?string $sortById): AbstractCriteria {
+        return $this;
+    }
 
-		$this->sortById = $sortById;
+    /**
+     * @return string|null
+     */
+    public function getSortById(): ?string
+    {
 
-		return $this;
-	}
+        return $this->sortById;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getPage(): int {
+    /**
+     * @param string|null $sortById
+     *
+     * @return AbstractCriteria
+     */
+    public function setSortById(?string $sortById): AbstractCriteria
+    {
 
-		return $this->page;
-	}
+        $this->sortById = $sortById;
 
-	/**
-	 * @return int
-	 */
-	public function getLimit(): int {
+        return $this;
+    }
 
-		return $this->limit;
-	}
 
-	/**
-	 * @param int $limit
-	 *
-	 * @return AbstractCriteria
-	 */
-	public function setLimit(int $limit): AbstractCriteria {
+    public function sortById(?string $sort)
+    {
+        $this->sortById = $sortById;
 
-		$this->limit = $limit;
+        return $this;
+    }
 
-		return $this;
-	}
+    /**
+     * @return int
+     */
+    public function getPage(): int
+    {
 
-	/**
-	 * @param int $page
-	 *
-	 * @return AbstractCriteria
-	 */
-	public function setPage(int $page): AbstractCriteria {
+        return $this->page;
+    }
 
-		$this->page = $page;
+    /**
+     * @return int
+     */
+    public function getLimit(): int
+    {
 
-		return $this;
-	}
+        return $this->limit;
+    }
 
-	public function getDefaultLimit(): int {
+    /**
+     * @param int $limit
+     *
+     * @return AbstractCriteria
+     */
+    public function setLimit(int $limit): AbstractCriteria
+    {
 
-		return $this->def;
-	}
+        $this->limit = $limit;
 
-	public function setDefaultLimit($limit) {
+        return $this;
+    }
 
-		$this->def = $limit;
+    /**
+     * @param int $page
+     *
+     * @return AbstractCriteria
+     */
+    public function setPage(int $page): AbstractCriteria
+    {
 
-		return $this;
-	}
+        $this->page = $page;
+
+        return $this;
+    }
+
+    public function getDefaultLimit(): int
+    {
+
+        return $this->def;
+    }
+
+    public function setDefaultLimit($limit)
+    {
+
+        $this->def = $limit;
+
+        return $this;
+    }
+
+
 }

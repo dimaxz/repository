@@ -4,6 +4,8 @@ namespace Repo;
 
 /**
  * Interface MapperInterface
+ * @deprecated
+ * @see BuilderInterface
  * @package Repo
  */
 interface MapperInterface {
