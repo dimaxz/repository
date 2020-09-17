@@ -121,9 +121,6 @@ abstract class AbstractCrudRepository
 
             $type = !$argType ? null : $argType->getName();
 
-            if (class_exists($argType) && !is_a($value, $argType)) {
-                continue;
-            }
 
             switch ($type) {
                 case 'bool':
@@ -145,6 +142,10 @@ abstract class AbstractCrudRepository
                 case 'array':
                     $value = (array)$value;
                     break;
+            }
+
+            if (class_exists($argType) && !is_a($value, $type)) {
+                continue;
             }
 
             $entity->{$methodName}($value);
