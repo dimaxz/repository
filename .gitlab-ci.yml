@@ -1,0 +1,56 @@
+stages:
+  - build
+  - unit-tests
+
+build:
+  image: dr.tradesoft.ru/docker/images/codetools:7.2.10-xdebug
+  stage: build
+  tags:
+    - war
+  artifacts:
+    paths:
+      - vendor
+    expire_in: 1 day
+  dependencies: []
+  cache:
+    key: composer_cache
+    paths:
+      - .composer-cache
+  variables:
+    COMPOSER_CACHE_DIR: .composer-cache
+    GIT_LFS_SKIP_SMUDGE: 0
+  script:
+    - COMPOSER_CACHE_DIR=.composer-cache composer install --no-interaction --no-ansi --prefer-dist
+  retry: 2
+
+unit tests:
+  image: dr.tradesoft.ru/docker/images/codetools:7.2.10-xdebug
+  stage: unit-tests
+  tags:
+    - k8s
+  dependencies:
+    - build
+  script:
+    - phing test
+
+code style test:
+  image: dr.tradesoft.ru/docker/images/codetools:7.2.10-xdebug
+  stage: unit-tests
+  tags:
+    - k8s
+  dependencies:
+    - build
+  script:
+    # Вычисляем разницу между веткой мастер либо от предыдущего комита (для develop)
+    - |
+      echo "diff with master"
+      git diff ${CI_COMMIT_SHA} ${CI_COMMIT_SHA}^ --name-only > changed-files
+    # Исключаем удаленные файлы
+    - |
+      for file in `cat changed-files`; do
+        if [ -f $file ]; then
+           echo $file >> phpcs-files
+        fi
+      done
+    - cat 'phpcs-files'
+    - phpcs -p --colors --standard=PSR2 --encoding=utf-8 --file-list=phpcs-files
