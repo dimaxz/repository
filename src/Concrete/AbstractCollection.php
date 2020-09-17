@@ -4,6 +4,7 @@ namespace Repo\Concrete;
 
 use Repo\CollectionInterface;
 use Repo\Concrete\Exceptions;
+use Repo\EntityInterface;
 
 /**
  * Абстрактная коллекция для Enitities
@@ -114,9 +115,9 @@ abstract class AbstractCollection implements CollectionInterface
     public function walk(): ?AbstractEntity
     {
         $key = key($this->_entities);
-        if(!$val = current($this->_entities)){
-			return null;
-		}
+        if (!$val = current($this->_entities)) {
+            return null;
+        }
         $this->next();
         $this->lastKey = $key;
         return $val;
@@ -171,7 +172,7 @@ abstract class AbstractCollection implements CollectionInterface
 
         $className = $this->getEntityClass();
 
-        if (!$entity instanceof $className) {
+        if (!is_a($entity, $className)) {
             throw new Exceptions\Collection("The specified entity is not allowed for this collection.");
         }
 
@@ -236,11 +237,11 @@ abstract class AbstractCollection implements CollectionInterface
     }
 
     /**
-     * @param AbstractEntity $value
-     * @return $this|mixed
+     * @param EntityInterface $value
+     * @return CollectionInterface
      * @throws Exceptions\Collection
      */
-    public function push(AbstractEntity $value): AbstractCollection
+    public function push(EntityInterface $value): CollectionInterface
     {
         $this->offsetSet($value);
         return $this;
@@ -253,5 +254,5 @@ abstract class AbstractCollection implements CollectionInterface
     {
         return json_encode($this->toArray());
     }
-    
+
 }

@@ -15,6 +15,6 @@ interface CollectionInterface extends \Iterator, \ArrayAccess , \Countable, Expo
      * @param $value
      * @return mixed
      */
-    public function push(AbstractEntity $value): AbstractCollection;
+    public function push(EntityInterface $value): CollectionInterface;
 
 }
