@@ -10,5 +10,5 @@ $repo = new TestRepository();
 
 dump(TestRepository::buildEntityFromArray([
     'id'    => 1,
-    'dateTime'  =>  new TestEntity()
+    'dateTime'  =>  '12/10/2020 15:25:00'
 ]));
