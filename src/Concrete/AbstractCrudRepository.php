@@ -77,7 +77,7 @@ abstract class AbstractCrudRepository
 
     abstract public static function createEntity(): \Repo\EntityInterface;
 
-    abstract public static function buildEntityFromArray(array $row): \Repo\EntityInterface;
+    abstract public function buildEntityFromArray(array $row): \Repo\EntityInterface;
 
     /**
      * Авто установка значений в объект
