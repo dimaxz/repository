@@ -13,5 +13,5 @@ interface BuilderInterface
 {
     public static function createEntity():EntityInterface;
 
-    public function buildEntityFromArray(array $row): EntityInterface;
+    public function buildEntityFromArray(array $row, EntityInterface $entity = null): EntityInterface;
 }

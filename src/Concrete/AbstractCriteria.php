@@ -8,8 +8,8 @@ use Repo\RepositoryCriteriaInterface;
 abstract class AbstractCriteria implements PaginationInterface, RepositoryCriteriaInterface
 {
 
-    protected $limit = 0;
-    protected $page = 0;
+    protected $limit = 1000;
+    protected $page = 1;
     private $def = 50;
 
     abstract public static function create();

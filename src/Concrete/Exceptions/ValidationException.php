@@ -12,7 +12,7 @@ namespace Repo\Concrete\Exceptions;
  *
  * @author d.lanec
  */
-class ValidationException extends \Exception
+class ValidationException extends \RuntimeException
 {
 
     protected $errors = [];
