@@ -8,7 +8,7 @@ use Repo\RepositoryCriteriaInterface;
 abstract class AbstractCriteria implements PaginationInterface, RepositoryCriteriaInterface
 {
 
-    protected $limit = 1000;
+    protected $limit;
     protected $page = 1;
     private $def = 50;
 
