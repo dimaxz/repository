@@ -86,17 +86,28 @@ abstract class AbstractCrudRepository
      *
      * @throws \ReflectionException
      */
-    protected function autoFillEntity(array $dataList, object $entity = null): \Repo\EntityInterface
+    protected function autoFillEntity(array $data, object $entity = null): \Repo\EntityInterface
     {
         if ($entity === null) {
             $entity = static::createEntity();
         }
 
-        $dataList = array_change_key_case($dataList);
+        return $this->autoFillObject($data, $entity);
+    }
+
+    /**
+     * @param array $data
+     * @param object|null $entity
+     * @return object
+     * @throws \ReflectionException
+     */
+    protected function autoFillObject(array $data, object $entity = null): object
+    {
+        $data = array_change_key_case($data);
 
         $reflector = new \ReflectionClass($entity);
 
-        foreach ($dataList as $name => $value) {
+        foreach ($data as $name => $value) {
             $methodName = "set" . $name;
             if (!method_exists($entity, $methodName)) {
                 continue;
