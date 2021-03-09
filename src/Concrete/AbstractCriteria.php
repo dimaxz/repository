@@ -106,7 +106,7 @@ abstract class AbstractCriteria implements PaginationInterface, RepositoryCriter
 
     public function sortById(?string $sort)
     {
-        $this->sortById = $sortById;
+        $this->sortById = $sort;
 
         return $this;
     }
