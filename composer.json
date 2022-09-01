@@ -1,5 +1,5 @@
 {
-  "name": "dimaxz/repository",
+  "name": "diamond/repository",
   "description": "repository interfaces",
   "authors": [
     {
@@ -8,11 +8,11 @@
     }
   ],
   "require": {
-    "php": ">=7.2.0"
+    "php": ">=8.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.5",
-    "symfony/var-dumper": "^4.3"
+    "phpunit/phpunit": "9.5.*",
+    "symfony/var-dumper": "*"
   },
   "autoload": {
     "psr-4": {
