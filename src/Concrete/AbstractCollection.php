@@ -14,14 +14,14 @@ use Repo\EntityInterface;
 abstract class AbstractCollection implements CollectionInterface
 {
 
-    protected $_entities = array();
+    protected array $_entities = [];
 
-    protected $lastKey;
+    protected string|null $lastKey;
 
     /**
      * @var int
      */
-    protected $foundRows = 0;
+    protected int $foundRows = 0;
 
     /**
      * Constructor
@@ -85,33 +85,24 @@ abstract class AbstractCollection implements CollectionInterface
      * @deprecated
      * @see  AbstractCollection::reset()
      */
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->_entities);
-        return $this;
     }
 
     /**
      * Get the current entity in the collection (implementation required by Iterator Interface)
      */
-    public function current()
+    public function current(): mixed
     {
         return current($this->_entities);
     }
 
-    /**
-     * Move to the next entity in the collection (implementation required by Iterator Interface)
-     * @return AbstractCollection
-     */
-    public function next(): AbstractCollection
+    public function next(): void
     {
         next($this->_entities);
-        return $this;
     }
 
-    /**
-     * @return AbstractEntity
-     */
     public function walk(): ?AbstractEntity
     {
         $key = key($this->_entities);
@@ -139,10 +130,7 @@ abstract class AbstractCollection implements CollectionInterface
         return $this->lastKey;
     }
 
-    /**
-     * Check if there’re more entities in the collection (implementation required by Iterator Interface)
-     */
-    public function valid()
+    public function valid(): bool
     {
         return ($this->current() !== false);
     }
@@ -159,7 +147,7 @@ abstract class AbstractCollection implements CollectionInterface
     /**
      * Count the number of entities in the collection (implementation required by Countable Interface)
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_entities);
     }
@@ -167,7 +155,7 @@ abstract class AbstractCollection implements CollectionInterface
     /**
      * Add an entity to the collection (implementation required by ArrayAccess interface)
      */
-    public function offsetSet($entity, $key = null)
+    public function offsetSet($entity, $key = null): void
     {
 
         $className = $this->getEntityClass();
@@ -185,46 +173,39 @@ abstract class AbstractCollection implements CollectionInterface
         } else {
             $this->_entities[$key] = $entity;
         }
-
-        return true;
     }
 
     /**
      * Remove an entity from the collection (implementation required by ArrayAccess interface)
      */
-    public function offsetUnset($object)
+    public function offsetUnset($object): void
     {
         $className = $this->getEntityClass();
 
         if ($object instanceof $className) {
             $key = spl_object_hash($object);
             unset($this->_entities[$key]);
-            return true;
         }
 
         $key = $object;
 
         if (isset($this->_entities[$key])) {
             unset($this->_entities[$key]);
-            return true;
         }
-        return false;
     }
 
     /**
      * Get the specified entity in the collection (implementation required by ArrayAccess interface)
      */
-    public function offsetGet($key)
+    public function offsetGet($key): mixed
     {
-        return isset($this->_entities[$key]) ?
-            $this->_entities[$key] :
-            null;
+        return $this->_entities[$key]?? null;
     }
 
     /**
      * Check if the specified entity exists in the collection (implementation required by ArrayAccess interface)
      */
-    public function offsetExists($key)
+    public function offsetExists($key):bool
     {
         return isset($this->_entities[$key]);
     }
@@ -236,11 +217,6 @@ abstract class AbstractCollection implements CollectionInterface
         }, $this->_entities);
     }
 
-    /**
-     * @param EntityInterface $value
-     * @return CollectionInterface
-     * @throws Exceptions\Collection
-     */
     public function push(EntityInterface $value): CollectionInterface
     {
         $this->offsetSet($value);

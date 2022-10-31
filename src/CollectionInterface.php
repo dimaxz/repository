@@ -11,10 +11,6 @@ use Repo\Concrete\AbstractEntity;
 interface CollectionInterface extends \Iterator, \ArrayAccess , \Countable, ExportableInterface{
 
 
-    /**
-     * @param $value
-     * @return mixed
-     */
     public function push(EntityInterface $value): CollectionInterface;
 
 }

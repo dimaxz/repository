@@ -1,15 +1,17 @@
 <?php
+
 namespace Repo;
 
 /**
  * Interface RepositoryCriteriaInterface
  * @package Repo
  */
-interface RepositoryCriteriaInterface {
+interface RepositoryCriteriaInterface
+{
 
 
-    public function filterById(?int $id);
+    public function setFilterById(?int $id);
 
-    public function sortById(?string $sort);
+    public function setSortById(?string $sort);
 
 }
