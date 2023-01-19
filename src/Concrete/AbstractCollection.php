@@ -114,6 +114,15 @@ abstract class AbstractCollection implements CollectionInterface
         return $val;
     }
 
+    public function getIds(): array
+    {
+        $ids = [];
+        foreach ($this->_entities as $entity) {
+            $ids [] = $entity->getId();
+        }
+        return $ids;
+    }
+
     /**
      * @return string
      */
@@ -185,6 +194,7 @@ abstract class AbstractCollection implements CollectionInterface
         if ($object instanceof $className) {
             $key = spl_object_hash($object);
             unset($this->_entities[$key]);
+            return;
         }
 
         $key = $object;
@@ -199,13 +209,13 @@ abstract class AbstractCollection implements CollectionInterface
      */
     public function offsetGet($key): mixed
     {
-        return $this->_entities[$key]?? null;
+        return $this->_entities[$key] ?? null;
     }
 
     /**
      * Check if the specified entity exists in the collection (implementation required by ArrayAccess interface)
      */
-    public function offsetExists($key):bool
+    public function offsetExists($key): bool
     {
         return isset($this->_entities[$key]);
     }
