@@ -73,13 +73,6 @@ abstract class AbstractCriteria implements PaginationInterface, RepositoryCriter
         return $this;
     }
 
-    public function filterById(?int $id)
-    {
-
-        $this->filterById = $filterById;
-
-        return $this;
-    }
 
     /**
      * @return string|null
@@ -103,13 +96,6 @@ abstract class AbstractCriteria implements PaginationInterface, RepositoryCriter
         return $this;
     }
 
-
-    public function sortById(?string $sort)
-    {
-        $this->sortById = $sort;
-
-        return $this;
-    }
 
     /**
      * @return int
